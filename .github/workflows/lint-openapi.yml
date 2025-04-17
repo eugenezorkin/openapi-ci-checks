@@ -1,0 +1,30 @@
+name: Reusable OpenAPI Lint
+
+on:
+  workflow_call:
+    inputs:
+      spec_path:
+        description: "Путь к openapi.yaml"
+        required: true
+        type: string
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Spectral lint
+        run: npx spectral lint --ruleset=.spectral.yaml ${{ inputs.spec_path }}
+
+      - name: Swagger CLI validate
+        run: npx swagger-cli validate ${{ inputs.spec_path }}

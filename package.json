@@ -1,0 +1,9 @@
+{
+  "name": "openapi-ci-checks",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@stoplight/spectral-cli": "^6.14.3",
+    "swagger-cli": "^4.0.4"
+  }
+}

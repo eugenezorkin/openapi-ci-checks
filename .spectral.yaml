@@ -1,0 +1,18 @@
+rules:
+  operation-operationId:
+    description: "Каждая операция должна иметь operationId"
+    message: "operationId обязателен"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-summary:
+    description: "Каждая операция должна иметь summary"
+    message: "summary обязателен"
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: summary
+      function: truthy
