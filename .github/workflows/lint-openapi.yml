@@ -12,7 +12,10 @@ jobs:
   lint-and-validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout target repo
+      - name: Checkout main repo (с openapi.yaml)
+        uses: actions/checkout@v3
+
+      - name: Checkout reusable workflow repo
         uses: actions/checkout@v3
         with:
           repository: eugenezorkin/openapi-ci-checks
@@ -29,8 +32,8 @@ jobs:
 
       - name: Spectral lint
         working-directory: checks
-        run: npx spectral lint --ruleset=.spectral.yaml ../${{ inputs.spec_path }}
+        run: npx spectral lint --ruleset=.spectral.yaml ../openapi.yaml
 
       - name: Swagger CLI validate
         working-directory: checks
-        run: npx swagger-cli validate ../${{ inputs.spec_path }}
+        run: npx swagger-cli validate ../openapi.yaml
