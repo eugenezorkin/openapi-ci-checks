@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Checkout target repo
         uses: actions/checkout@v3
+        with:
+          repository: eugenezorkin/openapi-ci-checks
+          path: checks
 
       - name: Set up Node
         uses: actions/setup-node@v3
@@ -21,10 +24,13 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        working-directory: checks
         run: npm install
 
       - name: Spectral lint
-        run: npx spectral lint --ruleset=.spectral.yaml ${{ inputs.spec_path }}
+        working-directory: checks
+        run: npx spectral lint --ruleset=.spectral.yaml ../${{ inputs.spec_path }}
 
       - name: Swagger CLI validate
-        run: npx swagger-cli validate ${{ inputs.spec_path }}
+        working-directory: checks
+        run: npx swagger-cli validate ../${{ inputs.spec_path }}
