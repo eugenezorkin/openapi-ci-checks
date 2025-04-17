@@ -32,8 +32,6 @@ on:
       paths:
          - 'openapi.yaml'
    pull_request:
-      paths:
-         - 'openapi.yaml'
 
 jobs:
    openapi-check:
