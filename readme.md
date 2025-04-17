@@ -39,10 +39,10 @@ jobs:
    openapi-check:
       uses: eugenezorkin/openapi-ci-checks/.github/workflows/lint-openapi.yml@main
       with:
-         spec_path: ../openapi.yaml
+         spec_path: openapi.yaml
 ```
 
-📌 Путь в `spec_path` — должен начинаться с "../"
+📌 Путь в `spec_path` — относительный от корня вызывающего репозитория.
 
 ---
 
