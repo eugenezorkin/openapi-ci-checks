@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       spec_path:
-        description: "Путь к openapi.yaml"
+        description: "Путь к openapi.yaml (относительно корня)"
         required: true
         type: string
 
@@ -31,9 +31,7 @@ jobs:
         run: npm install
 
       - name: Spectral lint
-        working-directory: checks
-        run: npx spectral lint --ruleset=.spectral.yaml ../openapi.yaml
+        run: npx --prefix checks spectral lint --ruleset=checks/.spectral.yaml ${{ inputs.spec_path }}
 
       - name: Swagger CLI validate
-        working-directory: checks
-        run: npx swagger-cli validate ../openapi.yaml
+        run: npx --prefix checks swagger-cli validate ${{ inputs.spec_path }}
